@@ -16,7 +16,7 @@ let routes = function(){
       locatarioRouter.route('/signout').get(function(req,res,next){
 
       });
-      locatarioRouter.route('/:id').get(function(req,res){
+      locatarioRouter.route('/buscar/:id').get(function(req,res){
 
       });
       locatarioRouter.route('/agregar/usuarioL').post(function(req,res){

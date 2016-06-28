@@ -16,6 +16,25 @@ usuarioRouter.route('/signin').get(function(req, res, next) {
 usuarioRouter.route('/signout').get(function(req, res, next) {
 
 });
+
+usuarioRouter.route('/buscarUsuario/:numPulsera').get(function(req, res, next) {
+
+    db.one('select * from pulsera p, clientepulsera cp,	usuario u	where p.numero=$1 AND p.codcp=cp.codcp AND u.codus=cp.codus;', req.params.numPulsera)
+        .then(function(data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: data,
+                    message: 'Recuperado 1 usuario por la pulsera número:' + req.params.numPulsera +", nombre "+data.nombre
+                });
+        })
+        .catch(function(err) {
+            console.log("Error al intentar recuperar datos para el usuario pulsera número "+req.params.numPulsera);
+            return next(err);
+        });
+});
+
+
 usuarioRouter.route('/:id').get(function(req, res) {
     var usuarioID = parseInt(req.params.id);
     db.one('select * from usuario where codus = $1', usuarioID)
@@ -32,8 +51,6 @@ usuarioRouter.route('/:id').get(function(req, res) {
         });
 });
 usuarioRouter.route('/agregar/usuarioP').post(function(req, res, next) {
-
-
 
     db.none("insert into usuario (nombre,contraseña,edad,alias,correo,fecharegistro,telefono,activo) values($1,$2,$3,$4,$5,$6,$7,$8)", [
             req.body.nombre,
