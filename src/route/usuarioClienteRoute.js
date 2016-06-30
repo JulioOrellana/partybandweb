@@ -10,10 +10,44 @@ usuarioRouter.route('/').get(function(req, res, next) {
         "Title": "Raiz para /UsuariosP"
     });
 });
+
+
+
+
+
+
 usuarioRouter.route('/signin').get(function(req, res, next) {
 
 });
 usuarioRouter.route('/signout').get(function(req, res, next) {
+
+});
+
+
+
+
+usuarioRouter.route('/listarUsuarios').get(function(req,res,next){
+  db.many('select * from usuario')
+      .then(function(data) {
+          console.log("entró en ACEPTADO");
+          res.status(200)
+              .json({
+                  status: 'success',
+                  data: data,
+                  message: 'Recuperado Lista de usuarios'
+              });
+      })
+      .catch(function(err) {
+        console.log("entró en RECHAZADO");
+          return next(err);
+      });
+});
+
+usuarioRouter.route('/agregarUsuario').get(function(req,res){
+
+});
+
+usuarioRouter.route('/actualizarUsuario').get(function(req,res){
 
 });
 
@@ -35,7 +69,7 @@ usuarioRouter.route('/buscarUsuario/:numPulsera').get(function(req, res, next) {
 });
 
 
-usuarioRouter.route('/:id').get(function(req, res) {
+usuarioRouter.route('/buscarUsuario/:id').get(function(req, res) {
     var usuarioID = parseInt(req.params.id);
     db.one('select * from usuario where codus = $1', usuarioID)
         .then(function(data) {
@@ -50,6 +84,7 @@ usuarioRouter.route('/:id').get(function(req, res) {
             return next(err);
         });
 });
+
 usuarioRouter.route('/agregar/usuarioP').post(function(req, res, next) {
 
     db.none("insert into usuario (nombre,contraseña,edad,alias,correo,fecharegistro,telefono,activo) values($1,$2,$3,$4,$5,$6,$7,$8)", [

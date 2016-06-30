@@ -1,0 +1,60 @@
+doctype html
+html(lang="en")
+    head
+        title= pageTitle
+        script(type='text/javascript').
+            if (foo) {
+                bar(1 + 5)
+            }
+
+    body
+
+    h1 PARTY BAND
+    
+    a(href="http://localhost:3000/") Inicio |&nbsp;
+
+    a(href="http://localhost:3000/Usuarios") Lista Usuarios |&nbsp;
+
+    a(href="http://localhost:3000/Local") Local
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    if data.numero
+      h2 Pulsera número: #{data.numero}
+      h2 Saldo pulsera: #{data.saldoactual}
+    #contenedor
+    form(action='http://localhost:3000/Usuarios/modificarUsuario',method='post')
+      <input type="hidden" name="_method" value="put">
+      table(border=1 style="text-align:center")
+        tr
+          td CODIGO
+          td <input type='textbox' name='id' value=#{data.codus} />
+        tr
+          td NOMBRE
+          td <input type='textbox' name='nombre' value=#{data.nombre} />
+        tr
+          td CONTRASEÑA
+          td <input type='textbox' name='contraseña' value=#{data.contraseña} />
+        tr
+          td EDAD
+          td <input type='textbox' name='edad' value=#{data.edad} />
+        tr
+          td ALIAS
+          td <input type='textbox' name='alias' value=#{data.alias} />
+        tr
+          td CORREO
+          td <input type='textbox' name='correo' value=#{data.correo} />
+        tr
+          td FECHA REGISTRO
+          td <input type='textbox' name='fecharegistro' value="#{data.fecharegistro.getYear()}-#{data.fecharegistro.getMonth()}-#{data.fecharegistro.getDate()}" />
+        tr
+          td TELEFONO
+          td <input type='textbox' name='telefono' value=#{data.telefono} /
+        tr
+          td ACTIVO
+          td <input type='textbox' name='activo' value=#{data.activo} /> <input='hidden' value=#{data.id}/>
+        tr
+          td <input type='submit' name='Enviar' value="Modificar"

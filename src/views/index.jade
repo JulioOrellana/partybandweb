@@ -1,0 +1,58 @@
+doctype html
+html(lang="en")
+    head
+        title= pageTitle
+        link(rel="text/stylesheet", href="style.css")
+
+    body
+
+    h1 PARTY BAND
+
+    a(href="http://localhost:3000/") Inicio |&nbsp;
+
+    a(href="http://localhost:3000/Usuarios") Lista Usuarios |&nbsp;
+
+    a(href="http://localhost:3000/Local") Local
+
+    <br>
+    <br>
+    <br>
+    form(action='http://localhost:3000/Usuarios/buscarPorPulsera' method='post')
+        p Buscar por Pulsera
+        input(type='text' name='buscarPulsera')
+        input(type='submit')
+
+    <br>
+    <br>
+    if usuarios_activo
+        h1 MANTENEDOR
+        #locatarios
+            h2 Locatarios en la BD
+            table(border=1 style='text-align:center')
+                th CODIGO
+                th NOMBRE
+                th TIPO USUARIO
+                each val in dataL
+                    if val.activo
+                        tr 
+                            td #{val.codus}
+                            td #{val.nombre}
+                            td #{val.tipousuario}
+                            td <a href="http://localhost:3000/">Eliminar</a>
+                            td <a href="http://localhost:3000/Usuarios/buscar/#{val.codus}">Modificar</a>
+        #pulsera
+            h2 Clientes registrados en la BD
+            table(border=1 style='text-align:center')
+                th CODIGO USUARIO
+                th NOMBRE
+                th NÚMERO PULSERA
+                th PIN
+                each val in dataP
+                    if val.activo
+                        tr 
+                            td #{val.codus}
+                            td #{val.nombre}
+                            td #{val.numero}
+                            td #{val.pin}
+                            td <a href="http://localhost:3000/Usuarios/eliminarUsuario/#{val.codus}">Eliminar</a>
+                            td <a href="http://localhost:3000/Usuarios/buscar/#{val.codus}">Modificar</a>
